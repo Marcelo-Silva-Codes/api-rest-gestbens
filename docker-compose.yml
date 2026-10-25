@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: gestbens-db
+    environment:
+      POSTGRES_DB: gestbens
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2662
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - gestbens-net
+
+  api:
+    build: .
+    container_name: gestbens-api
+    ports:
+      - "8080:10000"
+    environment:
+      - PORT=10000
+      - DB_URL=jdbc:postgresql://postgres:5432/gestbens
+      - DB_USER=postgres
+      - DB_PASSWORD=2662
+      - JWT_SECRET=uma-chave-com-mais-de-32-caracteres-aqui
+      - GOOGLE_CLIENT_ID=teste
+      - CORS_ORIGINS=*
+    depends_on:
+      - postgres
+    networks:
+      - gestbens-net
+
+volumes:
+  pgdata:
+
+networks:
+  gestbens-net:
+    driver: bridge
