@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(regras -> regras
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll() // <-- LIBERA O CADASTRO PARA QUALQUER PESSOA
                         .requestMatchers("/api/usuarios/**").hasRole("ADMIN") // só admin pode fazer isso meu velho
                         .requestMatchers("/api/bens/**").permitAll()
                         .anyRequest().authenticated()
