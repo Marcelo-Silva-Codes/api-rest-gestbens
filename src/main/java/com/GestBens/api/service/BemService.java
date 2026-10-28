@@ -74,6 +74,7 @@ public class BemService {
         bem.setDataCompra(dto.dataCompra());
         bem.setValorCompra(dto.valorCompra());
         bem.setCategoria(categoria);
+        bem.setDataCompra(dto.dataCompra());
         // status e localidade NÃO mudam aqui:
         // status -> manutenção ou baixa; localidade -> movimentação
 
@@ -101,7 +102,8 @@ public class BemService {
                 bem.getStatusBem().name(),
                 bem.getValorCompra(),
                 bem.getCategoria().getNome(),
-                bem.getLocalidade().getNome()
+                bem.getLocalidade().getNome(),
+                bem.getDataCompra()
         );
     }
 }

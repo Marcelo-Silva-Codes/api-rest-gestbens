@@ -1,7 +1,7 @@
 package com.GestBens.api.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record BemResponse(
         Long id,
@@ -10,6 +10,6 @@ public record BemResponse(
         BigDecimal valorCompra,
         String nomeCategoria,
         String nomeLocalidade,
-        LocalDateTime dataCompra
+        LocalDate dataCompra
 ) {
 }
