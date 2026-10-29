@@ -55,4 +55,9 @@ public class BemController {
         bemService.baixar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/{id}/reativar")
+    public ResponseEntity<BemResponse> reativar(@PathVariable Long id) {
+        return ResponseEntity.ok(bemService.reativar(id));
+    }
 }

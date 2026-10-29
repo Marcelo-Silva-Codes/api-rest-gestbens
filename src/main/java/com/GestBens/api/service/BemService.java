@@ -84,10 +84,23 @@ public class BemService {
     @Transactional
     public void baixar(Long id) {
         Bem bem = buscarEntidade(id);
+        if (bem.getStatusBem() == StatusBem.INATIVO) {
+            throw new IllegalStateException("O bem já está inativo");
+        }
         if (bem.getStatusBem() == StatusBem.EM_MANUTENCAO) {
             throw new IllegalStateException("Finalize a manutenção antes de dar baixa no bem");
         }
         bem.setStatusBem(StatusBem.INATIVO);
+    }
+
+    @Transactional
+    public BemResponse reativar(Long id) {
+        Bem bem = buscarEntidade(id);
+        if (bem.getStatusBem() != StatusBem.INATIVO) {
+            throw new IllegalStateException("Só bens inativos podem ser reativados");
+        }
+        bem.setStatusBem(StatusBem.ATIVO);
+        return toResponse(bem);
     }
 
     private Bem buscarEntidade(Long id) {
