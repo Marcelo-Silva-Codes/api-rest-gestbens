@@ -10,6 +10,7 @@ public record BemResponse(
         BigDecimal valorCompra,
         String nomeCategoria,
         String nomeLocalidade,
-        LocalDate dataCompra
+        LocalDate dataCompra,
+        String descricao
 ) {
 }

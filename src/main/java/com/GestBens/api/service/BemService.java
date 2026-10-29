@@ -103,7 +103,8 @@ public class BemService {
                 bem.getValorCompra(),
                 bem.getCategoria().getNome(),
                 bem.getLocalidade().getNome(),
-                bem.getDataCompra()
+                bem.getDataCompra(),
+                bem.getDescricao()
         );
     }
 }
