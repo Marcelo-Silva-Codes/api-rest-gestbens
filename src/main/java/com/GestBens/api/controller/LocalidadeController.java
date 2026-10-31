@@ -55,13 +55,8 @@ public class LocalidadeController {
     // DELETE: Deletar localidade -> DELETE http://localhost:8080/api/localidades/1
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        try {
-            localidadeService.deletar(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        localidadeService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
-
-
+    
 }

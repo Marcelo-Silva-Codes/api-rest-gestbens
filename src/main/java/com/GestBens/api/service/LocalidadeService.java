@@ -3,6 +3,7 @@ import com.GestBens.api.dto.LocalidadeRequest;
 import com.GestBens.api.dto.LocalidadeResponse;
 import com.GestBens.api.model.Localidade;
 import com.GestBens.api.repository.LocalidadeRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -71,6 +72,12 @@ public class LocalidadeService {
         if(!localidadeRepository.existsById(id)){
             throw new RuntimeException("Localidade com ID " + id + " não encontrada para exclusão.");
         }
-        localidadeRepository.deleteById(id);
+        try {
+            localidadeRepository.deleteById(id);
+            localidadeRepository.flush();
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalStateException(
+                    "Não é possível excluir: esta localidade está sendo usada por bens ou aparece no histórico de movimentações.");
+        }
     }
 }
