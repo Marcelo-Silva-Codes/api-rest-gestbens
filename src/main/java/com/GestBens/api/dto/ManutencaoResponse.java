@@ -10,5 +10,6 @@ public record ManutencaoResponse(
         String descricao,
         BigDecimal custo,
         String usuario,
+        Long bemId,
         String bem) {
 }

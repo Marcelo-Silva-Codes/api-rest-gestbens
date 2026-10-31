@@ -121,6 +121,7 @@ public class ManutencaoService {
                 m.getDescricao(),
                 m.getCusto(),
                 m.getUsuario().getNome(),
+                m.getBem().getId(),
                 m.getBem().getNome()
         );
     }

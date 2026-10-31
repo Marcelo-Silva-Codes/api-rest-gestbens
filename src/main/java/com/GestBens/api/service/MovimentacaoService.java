@@ -99,6 +99,7 @@ public class MovimentacaoService {
         return new MovimentacaoResponse(
                 m.getId(),
                 m.getDataMovimentacao(),
+                m.getBem().getId(),
                 m.getBem().getNome(),
                 m.getLocalidadeOrigem().getNome(),
                 m.getLocalidadeDestino().getNome(),
