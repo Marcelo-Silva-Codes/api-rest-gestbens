@@ -94,6 +94,16 @@ public class ManutencaoService {
     }
 
     @Transactional(readOnly = true)
+    public List<ManutencaoResponse> historicoDoBem(Long bemId) {
+        if (!bemRepository.existsById(bemId)) {
+            throw new EntityNotFoundException("Bem com ID " + bemId + " não encontrado!");
+        }
+        return manutencaoRepository.findByBemIdOrderByDataEntradaDesc(bemId).stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
     public ManutencaoResponse buscarPorId(Long id) {
         return toResponse(buscarEntidade(id));
     }

@@ -87,6 +87,9 @@ public class MovimentacaoService {
 
     @Transactional(readOnly = true)
     public List<MovimentacaoResponse> historicoDoBem(Long bemId) {
+        if (!bemRepository.existsById(bemId)) {
+            throw new EntityNotFoundException("Bem com ID " + bemId + " não encontrado!");
+        }
         return movimentacaoRepository.findByBemIdOrderByDataMovimentacaoDesc(bemId).stream()
                 .map(this::toResponse)
                 .toList();

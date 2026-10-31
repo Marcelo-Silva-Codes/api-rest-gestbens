@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ManutencaoRepository extends JpaRepository<Manutencao, Long> {
         List<Manutencao> findByDataRetornoIsNull();
+
+        List<Manutencao> findByBemIdOrderByDataEntradaDesc(Long bemId);
 }

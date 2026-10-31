@@ -60,4 +60,9 @@ public class ManutencaoController {
     public ManutencaoResponse buscarPorId(@PathVariable Long id) {
         return manutencaoService.buscarPorId(id);
     }
+
+    @GetMapping("/bem/{bemId}")
+    public List<ManutencaoResponse> historicoDoBem(@PathVariable Long bemId) {
+        return manutencaoService.historicoDoBem(bemId);
+    }
 }
