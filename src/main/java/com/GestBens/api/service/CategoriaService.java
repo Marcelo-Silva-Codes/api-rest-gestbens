@@ -4,6 +4,8 @@ import com.GestBens.api.dto.CategoriaRequest;
 import com.GestBens.api.dto.CategoriaResponse;
 import com.GestBens.api.model.Categoria;
 import com.GestBens.api.repository.CategoriaRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -73,10 +75,15 @@ public class CategoriaService {
     }
 
     // Deletar categoria
-    public void deletar(Long id){
-        if(!categoriaRepository.existsById(id)){
-            throw new RuntimeException("Categoria com ID "+id+ " não encontrada!");
+    public void deletar(Long id) {
+        if (!categoriaRepository.existsById(id)) {
+            throw new EntityNotFoundException("Categoria com ID " + id + " não encontrada!");
         }
-        categoriaRepository.deleteById(id);
+        try {
+            categoriaRepository.deleteById(id);
+            categoriaRepository.flush();
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalStateException("Não é possível excluir: esta categoria está sendo usada por bens.");
+        }
     }
 }

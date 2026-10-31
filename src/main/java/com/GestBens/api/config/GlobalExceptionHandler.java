@@ -62,4 +62,3 @@ public class GlobalExceptionHandler {
         return montar(HttpStatus.FORBIDDEN, "Usuário desativado");
     }
     }
-

@@ -54,12 +54,8 @@ public class CategoriaController {
     // DELETE: Deletar categoria -> DELETE http://localhost:8080/api/categorias/1
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id){
-        try {
             categoriaService.deletar(id);
             return ResponseEntity.noContent().build();
-        }catch (RuntimeException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
     }
 
 }
