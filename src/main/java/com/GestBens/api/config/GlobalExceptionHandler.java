@@ -61,4 +61,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErroResponse> usuarioDesativado(DisabledException e) {
         return montar(HttpStatus.FORBIDDEN, "Usuário desativado");
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErroResponse> erroInesperado(Exception e) {
+        return montar(HttpStatus.INTERNAL_SERVER_ERROR, "Ocorreu um erro interno no servidor");
+    }
     }
