@@ -1,4 +1,8 @@
 package com.GestBens.api.dto;
 
-public record LoginRequest(String email, String senha) {
+import jakarta.validation.constraints.NotBlank;
+
+public record LoginRequest(
+        @NotBlank String email,
+        @NotBlank String senha) {
 }
