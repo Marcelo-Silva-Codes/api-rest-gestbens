@@ -5,6 +5,7 @@ import com.GestBens.api.dto.GoogleLoginRequest;
 import com.GestBens.api.dto.LoginRequest;
 import com.GestBens.api.dto.LoginResponse;
 import com.GestBens.api.model.Usuario;
+import jakarta.validation.Valid;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,7 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public LoginResponse login(@RequestBody LoginRequest dto) {
+    public LoginResponse login(@Valid @RequestBody LoginRequest dto) {
         // Se e-mail/senha estiverem errados, o Spring lança BadCredentialsException.
         // Se o usuário estiver inativo, lança DisabledException.
         // As duas são tratadas no GlobalExceptionHandler.
@@ -45,7 +46,7 @@ public class AuthController {
     }
 
     @PostMapping("/login/google")
-    public LoginResponse loginGoogle(@RequestBody GoogleLoginRequest dto) {
+    public LoginResponse loginGoogle( @Valid @RequestBody GoogleLoginRequest dto) {
         DadosGoogle google = googleTokenService.validar(dto.credential());
         Usuario usuario = googleAuthService.entrarOuCadastrar(google);
 

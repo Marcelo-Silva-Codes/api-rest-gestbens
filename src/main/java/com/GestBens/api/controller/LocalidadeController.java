@@ -3,6 +3,7 @@ package com.GestBens.api.controller;
 import com.GestBens.api.dto.LocalidadeRequest;
 import com.GestBens.api.dto.LocalidadeResponse;
 import com.GestBens.api.service.LocalidadeService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,30 +27,22 @@ public class LocalidadeController {
     // GET: Buscar por ID
     @GetMapping("/{id}")
     public ResponseEntity<LocalidadeResponse> buscarPorId(@PathVariable Long id) {
-        try {
-            LocalidadeResponse dto = localidadeService.buscarPorId(id);
-            return ResponseEntity.ok(dto);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        LocalidadeResponse dto = localidadeService.buscarPorId(id);
+        return ResponseEntity.ok(dto);
     }
 
     // POST: Criar localidade
     @PostMapping
-    public ResponseEntity<LocalidadeResponse> criar(@RequestBody LocalidadeRequest dto) {
+    public ResponseEntity<LocalidadeResponse> criar(@Valid @RequestBody LocalidadeRequest dto) {
         LocalidadeResponse novaLocalidade = localidadeService.salvar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaLocalidade);
     }
 
     // PUT: Atualizar localidade
     @PutMapping("/{id}")
-    public ResponseEntity<LocalidadeResponse> atualizar(@PathVariable Long id, @RequestBody LocalidadeRequest dto) {
-        try {
-            LocalidadeResponse localidadeAtualizada = localidadeService.atualizar(id, dto);
-            return ResponseEntity.ok(localidadeAtualizada);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<LocalidadeResponse> atualizar(@PathVariable Long id,@Valid @RequestBody LocalidadeRequest dto) {
+        LocalidadeResponse localidadeAtualizada = localidadeService.atualizar(id, dto);
+        return ResponseEntity.ok(localidadeAtualizada);
     }
 
     // DELETE: Deletar localidade -> DELETE http://localhost:8080/api/localidades/1
@@ -58,5 +51,4 @@ public class LocalidadeController {
         localidadeService.deletar(id);
         return ResponseEntity.noContent().build();
     }
-    
 }

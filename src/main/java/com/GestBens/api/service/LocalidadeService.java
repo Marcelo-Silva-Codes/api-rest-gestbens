@@ -3,6 +3,7 @@ import com.GestBens.api.dto.LocalidadeRequest;
 import com.GestBens.api.dto.LocalidadeResponse;
 import com.GestBens.api.model.Localidade;
 import com.GestBens.api.repository.LocalidadeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +55,7 @@ public class LocalidadeService {
 
     public LocalidadeResponse atualizar(Long id, LocalidadeRequest dto){
         Localidade localidade = localidadeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Localidade com ID " + id + " não encontrada!"));
+                .orElseThrow(() -> new EntityNotFoundException("Localidade com ID " + id + " não encontrada!"));
 
         localidade.setNome(dto.nome());
         localidade.setDescricao(dto.descricao());
@@ -70,7 +71,7 @@ public class LocalidadeService {
 
     public void deletar(Long id){
         if(!localidadeRepository.existsById(id)){
-            throw new RuntimeException("Localidade com ID " + id + " não encontrada para exclusão.");
+            throw new EntityNotFoundException("Localidade com ID " + id + " não encontrada para exclusão.");
         }
         try {
             localidadeRepository.deleteById(id);

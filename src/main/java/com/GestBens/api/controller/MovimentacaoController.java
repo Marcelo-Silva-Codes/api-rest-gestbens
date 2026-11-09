@@ -3,6 +3,7 @@ package com.GestBens.api.controller;
 import com.GestBens.api.Security.UsuarioAutenticado;
 import com.GestBens.api.dto.MovimentacaoRequest;
 import com.GestBens.api.dto.MovimentacaoResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -25,7 +26,7 @@ public class MovimentacaoController {
     // usuarioId como parâmetro é TEMPORÁRIO, até a autenticação ficar pronta
     @PostMapping
     public ResponseEntity<MovimentacaoResponse> registrar(
-            @RequestBody MovimentacaoRequest dto,
+            @Valid @RequestBody MovimentacaoRequest dto,
             @AuthenticationPrincipal UsuarioAutenticado logado) {
         Long usuarioId = logado.getUsuario().getId();
         MovimentacaoResponse response = movimentacaoService.registrar(dto, usuarioId);

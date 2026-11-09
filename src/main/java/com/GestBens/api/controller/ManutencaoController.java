@@ -6,6 +6,7 @@ import com.GestBens.api.dto.ManutencaoResponse;
 import com.GestBens.api.dto.ManutencaoRetornoRequest;
 import com.GestBens.api.dto.ManutencaoUpdateRequest;
 import com.GestBens.api.service.ManutencaoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,7 +26,7 @@ public class ManutencaoController {
     // o usuário vem do token (usuário logado), não do cliente
     @PostMapping
     public ResponseEntity<ManutencaoResponse> abrir(
-            @RequestBody ManutencaoRequest dto,
+            @Valid @RequestBody ManutencaoRequest dto,
             @AuthenticationPrincipal UsuarioAutenticado logado) {
         Long usuarioId = logado.getUsuario().getId();
 
@@ -35,14 +36,14 @@ public class ManutencaoController {
     @PatchMapping("/{id}/retorno")
     public ManutencaoResponse registrarRetorno(
             @PathVariable Long id,
-            @RequestBody ManutencaoRetornoRequest dto) {
+            @Valid @RequestBody ManutencaoRetornoRequest dto) {
         return manutencaoService.registrarRetorno(id, dto);
     }
 
     @PutMapping("/{id}")
     public ManutencaoResponse atualizar(
             @PathVariable Long id,
-            @RequestBody ManutencaoUpdateRequest dto) {
+            @Valid @RequestBody ManutencaoUpdateRequest dto) {
         return manutencaoService.atualizar(id, dto);
     }
 

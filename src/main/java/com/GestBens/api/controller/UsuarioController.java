@@ -4,6 +4,7 @@ import com.GestBens.api.Security.UsuarioAutenticado;
 import com.GestBens.api.dto.UsuarioRequest;
 import com.GestBens.api.dto.UsuarioResponse;
 import com.GestBens.api.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,12 +34,12 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioResponse> criar(@RequestBody UsuarioRequest dto) {
+    public ResponseEntity<UsuarioResponse> criar(@Valid @RequestBody UsuarioRequest dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.salvar(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioResponse> atualizar(@PathVariable Long id, @RequestBody UsuarioRequest dto) {
+    public ResponseEntity<UsuarioResponse> atualizar(@PathVariable Long id, @Valid @RequestBody UsuarioRequest dto) {
         return ResponseEntity.ok(usuarioService.atualizar(id, dto));
     }
 

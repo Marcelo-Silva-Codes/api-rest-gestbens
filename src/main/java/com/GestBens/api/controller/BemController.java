@@ -4,6 +4,7 @@ import com.GestBens.api.dto.BemRequest;
 import com.GestBens.api.dto.BemResponse;
 import com.GestBens.api.model.StatusBem;
 import com.GestBens.api.service.BemService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,12 +42,12 @@ public class BemController {
     }
 
     @PostMapping
-    public ResponseEntity<BemResponse> criar(@RequestBody BemRequest dto) {
+    public ResponseEntity<BemResponse> criar(@Valid @RequestBody BemRequest dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(bemService.salvar(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BemResponse> atualizar(@PathVariable Long id, @RequestBody BemRequest dto) {
+    public ResponseEntity<BemResponse> atualizar(@PathVariable Long id,@Valid @RequestBody BemRequest dto) {
         return ResponseEntity.ok(bemService.atualizar(id, dto));
     }
 

@@ -33,7 +33,7 @@ public class CategoriaService {
     // Buscar por ID
     public CategoriaResponse buscarPorId(Long id){
         Categoria categoria = categoriaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Categoria com ID " + id + " não encontrada!"));
+                .orElseThrow(() -> new EntityNotFoundException("Categoria com ID " + id + " não encontrada!"));
 
         return new CategoriaResponse(
                 categoria.getId(),
@@ -60,7 +60,7 @@ public class CategoriaService {
     // Atualizar categoria existente
     public CategoriaResponse atualizar(Long id, CategoriaRequest dto){
         Categoria categoria = categoriaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Categoria com ID " +id+ " não foi encontrado!"));
+                .orElseThrow(() -> new EntityNotFoundException("Categoria com ID " +id+ " não foi encontrado!"));
 
         categoria.setNome((dto.nome()));
         categoria.setDescricao(dto.descricao());
