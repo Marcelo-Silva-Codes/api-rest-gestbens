@@ -2,6 +2,7 @@ package com.GestBens.api.service;
 
 import com.GestBens.api.dto.BemRequest;
 import com.GestBens.api.dto.BemResponse;
+import com.GestBens.api.dto.BemUpdateRequest;
 import com.GestBens.api.model.Bem;
 import com.GestBens.api.model.Categoria;
 import com.GestBens.api.model.Localidade;
@@ -64,7 +65,7 @@ public class BemService {
     }
 
     @Transactional
-    public BemResponse atualizar(Long id, BemRequest dto){
+    public BemResponse atualizar(Long id, BemUpdateRequest dto){
         Bem bem = buscarEntidade(id);
         Categoria categoria = categoriaRepository.findById(dto.categoriaId())
                 .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada!"));

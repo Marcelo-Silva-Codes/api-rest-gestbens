@@ -2,6 +2,7 @@ package com.GestBens.api.controller;
 
 import com.GestBens.api.dto.BemRequest;
 import com.GestBens.api.dto.BemResponse;
+import com.GestBens.api.dto.BemUpdateRequest;
 import com.GestBens.api.model.StatusBem;
 import com.GestBens.api.service.BemService;
 import jakarta.validation.Valid;
@@ -47,7 +48,7 @@ public class BemController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BemResponse> atualizar(@PathVariable Long id,@Valid @RequestBody BemRequest dto) {
+    public ResponseEntity<BemResponse> atualizar(@PathVariable Long id, @Valid @RequestBody BemUpdateRequest dto) {
         return ResponseEntity.ok(bemService.atualizar(id, dto));
     }
 
